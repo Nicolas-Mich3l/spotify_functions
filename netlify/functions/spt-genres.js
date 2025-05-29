@@ -1,8 +1,8 @@
 exports.handler = async (event, context) => {
   // Get environment variables
-  const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
-  const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
-  const REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN;
+  const CLIENT_ID = process.env.spt_client_ID;
+  const CLIENT_SECRET = process.env.spt_client_key;
+  const REFRESH_TOKEN = process.env.spt_refresh_token;
 
   // CORS headers
   const headers = {
