@@ -6,7 +6,7 @@ exports.handler = async (event, context) => {
 
   // CORS headers
   const headers = {
-    'Access-Control-Allow-Origin': 'https://nicolas-mich3l.github.io/test',
+    'Access-Control-Allow-Origin': 'https://nicolas-mich3l.github.io',
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Content-Type': 'application/json',
