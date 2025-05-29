@@ -4,9 +4,20 @@ exports.handler = async (event, context) => {
   const CLIENT_SECRET = process.env.spt_client_key;
   const REFRESH_TOKEN = process.env.spt_refresh_token;
 
-  // CORS headers
+  // Define allowed origins
+  const allowedOrigins = [
+    'https://nicolas-mich3l.github.io',
+    'http://127.0.0.1:5500',
+    'http://localhost:5500'
+  ];
+
+  // Get the origin from the request
+  const origin = event.headers.origin;
+  const corsOrigin = allowedOrigins.includes(origin) ? origin : 'https://nicolas-mich3l.github.io';
+
+  // CORS headers (now using dynamic origin)
   const headers = {
-    'Access-Control-Allow-Origin': 'http://127.0.0.1:5500/test.html',
+    'Access-Control-Allow-Origin': corsOrigin,
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Content-Type': 'application/json',
@@ -36,6 +47,8 @@ exports.handler = async (event, context) => {
     console.log('CLIENT_ID exists:', !!CLIENT_ID);
     console.log('CLIENT_SECRET exists:', !!CLIENT_SECRET);
     console.log('REFRESH_TOKEN exists:', !!REFRESH_TOKEN);
+    console.log('Request origin:', origin);
+    console.log('CORS origin used:', corsOrigin);
     
     if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
       throw new Error('Missing required environment variables');
