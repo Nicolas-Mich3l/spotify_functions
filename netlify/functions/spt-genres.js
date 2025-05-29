@@ -40,10 +40,6 @@ exports.handler = async (event, context) => {
     if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
       throw new Error('Missing required environment variables');
     }
-  }
-
-  try {
-    // Refresh access token
     const tokenResponse = await fetch('https://accounts.spotify.com/api/token', {
       method: 'POST',
       headers: {
@@ -54,9 +50,12 @@ exports.handler = async (event, context) => {
     });
 
     const tokenData = await tokenResponse.json();
+    console.log('Token response status:', tokenResponse.status);
+    console.log('Token response error:', tokenData.error);
 
     if (tokenData.error) {
-      throw new Error(`Token refresh failed: ${tokenData.error}`);
+      console.error('Full token error response:', tokenData);
+      throw new Error(`Token refresh failed: ${tokenData.error} - ${tokenData.error_description || 'No description'}`);
     }
 
     const accessToken = tokenData.access_token;
