@@ -29,6 +29,19 @@ exports.handler = async (event, context) => {
     };
   }
 
+  
+  try {
+    // Debug logging
+    console.log('Environment check:');
+    console.log('CLIENT_ID exists:', !!CLIENT_ID);
+    console.log('CLIENT_SECRET exists:', !!CLIENT_SECRET);
+    console.log('REFRESH_TOKEN exists:', !!REFRESH_TOKEN);
+    
+    if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
+      throw new Error('Missing required environment variables');
+    }
+  }
+
   try {
     // Refresh access token
     const tokenResponse = await fetch('https://accounts.spotify.com/api/token', {
