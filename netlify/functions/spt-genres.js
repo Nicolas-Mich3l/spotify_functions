@@ -15,7 +15,7 @@ exports.handler = async (event, context) => {
   const origin = event.headers.origin;
   const corsOrigin = allowedOrigins.includes(origin) ? origin : 'https://nicolas-mich3l.github.io';
 
-  // CORS headers (now using dynamic origin)
+  // CORS headers
   const headers = {
     'Access-Control-Allow-Origin': corsOrigin,
     'Access-Control-Allow-Headers': 'Content-Type',
@@ -95,7 +95,7 @@ exports.handler = async (event, context) => {
 
     // Get artist details (including genres) in batches
     const genres = new Map();
-    const batchSize = 50; // Spotify API limit
+    const batchSize = 25; // Spotify API limit
 
     for (let i = 0; i < artistIds.length; i += batchSize) {
       const batch = artistIds.slice(i, i + batchSize);
